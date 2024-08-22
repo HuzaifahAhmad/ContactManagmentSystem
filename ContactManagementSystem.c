@@ -28,10 +28,10 @@ Contact addNewContact(Contact *newContact) {
     printf("\n");
 
     printf("Enter Contact Name: ");
-    fgets(newContact->name, 50, stdin);
+    fgets(newContact->name, 500, stdin);
 
     printf("Enter Contact Phone Number: ");
-    fgets(newContact->phoneNumber, 50, stdin);
+    fgets(newContact->phoneNumber, 500, stdin);
 
     flush_input();
     return *newContact;
@@ -96,7 +96,33 @@ int main() {
             break;
         
         case 3:
-            printf("\nSEARCH\n");
+            printf("\nSEARCH CONTACT\n");
+
+            Contact searchContact;
+            Contact *searchContactptr = &searchContact;
+            // gets input from the user
+            printf("Enter Name: ");
+            fgets(searchContactptr->name, 500, stdin);
+
+            printf("Enter Phone Number: ");
+            fgets(searchContactptr->phoneNumber, 500, stdin);
+
+            flush_input();
+            // check if a contains the contact information
+            for (int i = 0; i < size - 1 ; i++) 
+            {
+                if (strcmp(a[i].name, searchContactptr->name) == 0 && strcmp(a[i].phoneNumber, searchContactptr->phoneNumber) == 0)
+                {
+                    printf("CONTACT FOUND:\n");
+                    printf("Name: %sPhone Number: %s", a[i].name , a[i].phoneNumber);       
+                    printf("\n");         
+                } 
+                else 
+                {
+                    printf("Contact was not found\n");
+                }
+            };
+
             break;
         
         case 4:
