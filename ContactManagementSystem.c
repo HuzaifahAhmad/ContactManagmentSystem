@@ -67,26 +67,28 @@ int main() {
             // add contacts 
             printf("\nADD CONTACT\n");
 
-            Contact c3;
-            Contact *c3ptr = &c3;
-            addNewContact(c3ptr);
-            a[0] = *c3ptr;
+            Contact tempVariable;
+            Contact *tempVariableptr = &tempVariable;
 
-            // add is chosen, realloc some memory    
-            a = realloc (a, sizeof(Contact) * (size + 1));
-        
+            // store contact information in temp variable
+            addNewContact(tempVariableptr);
+
+            // put the information in the allocated memory
+            a[size - 1] = *tempVariableptr; 
+
+            // increase size of memory by 1    
+            a = realloc (a, sizeof(Contact) * (size + 1)); 
+
             if (a == NULL) 
             {
                 printf("Memory not reallocated\n");
                 exit(0);
             }
 
-            Contact c4;
-            Contact *c4ptr = &c4;
-            addNewContact(c4ptr);
-            a[1] = *c4ptr;
-            size += 1;
+            size += 1; 
 
+            // reset temp variable ptr
+            tempVariableptr = NULL;
             break;
         
         case 2:
@@ -100,7 +102,7 @@ int main() {
         case 4:
             // display all contacts
             printf("\nDISPLAY ALL CONTACTS\n");
-            for (int i = 0; i < size; i++) {printf("\nName: %sPhone Number: %s\n", a[i].name , a[i].phoneNumber);};
+            for (int i = 0; i < size - 1; i++) {printf("\nName: %sPhone Number: %s\n", a[i].name , a[i].phoneNumber);};
             break;
 
         case 5:
@@ -112,7 +114,7 @@ int main() {
         }
 
         if (userInput == 5) {
-            printf("Thanks for using the Contact Management System\n");
+            printf("Thank you for using the Contact Management System\n");
             break;
         }
     }
