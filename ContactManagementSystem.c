@@ -16,7 +16,7 @@ void displayContactArray(Contact array[], int arraySize) {
         printf("Name: %s, Phone Number: %s\n", array[i].name, array[i].phoneNumber);
     }
 
-};
+}
 
 void flush_input() {
     int ch;
@@ -26,6 +26,7 @@ void flush_input() {
 
 Contact addNewContact(Contact *newContact) {
     printf("\n");
+
     printf("Enter Contact Name: ");
     fgets(newContact->name, 50, stdin);
 
@@ -34,37 +35,88 @@ Contact addNewContact(Contact *newContact) {
 
     flush_input();
     return *newContact;
-};
+}
 
 
 int main() {
-
+    printf("\n");
     printf("WELCOME TO THE CONTACT MANAGEMENT SYSTEM!\n");
 
     // initializing malloc
     int size = 1;
     Contact *a = malloc( sizeof(Contact) * size ); 
 
-    Contact c3;
-    Contact *c3ptr = &c3;
-    addNewContact(c3ptr);
-    a[0] = *c3ptr;
+    if (a == NULL) 
+    {
+        printf("Memory not Allocated\n");
+        exit(0);
+    }
 
-    for (int i = 0; i < size; i++) {printf("\nName: %sPhone Number: %s\n", a[i].name , a[i].phoneNumber);};
-    // add is chosen, realloc some memory
-    
-    a = realloc (a, sizeof(Contact) * (size + 1));
-    Contact c4;
-    Contact *c4ptr = &c4;
-    addNewContact(c4ptr);
-    a[1] = *c4ptr;
-    size += 1;
+    while (1) 
+    {
+        printf("Choose Option: Add Contact [1], Delete Contact [2], Search Contact [3], Display Contacts [4], Exit [5]\n");
+        printf("Enter 1, 2, 3, 4, or 5: ");
+        int userInput;
+        scanf("%d", &userInput);
+        flush_input();
 
-    // display all contacts
-    printf("\n");
-    printf("DISPLAY ALL CONTACTS\n");
 
-    for (int i = 0; i < size; i++) {printf("\nName: %sPhone Number: %s\n", a[i].name , a[i].phoneNumber);};
+        switch (userInput)
+        {
+        case 1:
+            // add contacts 
+            printf("\nADD CONTACT\n");
+
+            Contact c3;
+            Contact *c3ptr = &c3;
+            addNewContact(c3ptr);
+            a[0] = *c3ptr;
+
+            // add is chosen, realloc some memory    
+            a = realloc (a, sizeof(Contact) * (size + 1));
+        
+            if (a == NULL) 
+            {
+                printf("Memory not reallocated\n");
+                exit(0);
+            }
+
+            Contact c4;
+            Contact *c4ptr = &c4;
+            addNewContact(c4ptr);
+            a[1] = *c4ptr;
+            size += 1;
+
+            break;
+        
+        case 2:
+            printf("\nDELETE\n");
+            break;
+        
+        case 3:
+            printf("\nSEARCH\n");
+            break;
+        
+        case 4:
+            // display all contacts
+            printf("\nDISPLAY ALL CONTACTS\n");
+            for (int i = 0; i < size; i++) {printf("\nName: %sPhone Number: %s\n", a[i].name , a[i].phoneNumber);};
+            break;
+
+        case 5:
+            // exit
+            break;
+        
+        default:
+            printf("Enter Valid Option\n");
+        }
+
+        if (userInput == 5) {
+            printf("Thanks for using the Contact Management System\n");
+            break;
+        }
+    }
+
     free(a);
 
     return 0;
