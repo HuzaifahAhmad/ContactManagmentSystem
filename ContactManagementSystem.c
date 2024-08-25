@@ -27,10 +27,10 @@ void flush_input() {
 Contact addNewContact(Contact *newContact) {
     printf("\n");
 
-    printf("Enter Contact Name: ");
+    printf("Enter Name: ");
     fgets(newContact->name, 500, stdin);
 
-    printf("Enter Contact Phone Number: ");
+    printf("Enter Phone Number: ");
     fgets(newContact->phoneNumber, 500, stdin);
 
     flush_input();
@@ -92,7 +92,40 @@ int main() {
             break;
         
         case 2:
-            printf("\nDELETE\n");
+            printf("\nDELETE CONTACT\n");
+
+            Contact deleteContact;
+            Contact *deleteContactptr = &deleteContact;
+
+            // gets input from the user
+            printf("Enter Name: ");
+            fgets(deleteContactptr->name, 500, stdin);
+
+            printf("Enter Phone Number: ");
+            fgets(deleteContactptr->phoneNumber, 500, stdin);
+
+            flush_input();
+
+            int deleteFound = 0;
+
+            for (int i = 0; i < size - 1 ; i++) 
+            {
+                if (strcmp(a[i].name, deleteContactptr->name) == 0 && strcmp(a[i].phoneNumber, deleteContactptr->phoneNumber) == 0)
+                {
+                    printf("CONTACT DELETED:\n");
+
+
+                    deleteFound = 1;
+                    size -= 1;
+                    break;     
+                        
+                } 
+            };
+            if (deleteFound == 0) 
+            {
+                printf("Contact was not found\n");
+            }            
+
             break;
         
         case 3:
@@ -109,26 +142,36 @@ int main() {
 
             flush_input();
             // check if a contains the contact information
+            int searchFound = 0;
+
             for (int i = 0; i < size - 1 ; i++) 
             {
                 if (strcmp(a[i].name, searchContactptr->name) == 0 && strcmp(a[i].phoneNumber, searchContactptr->phoneNumber) == 0)
                 {
                     printf("CONTACT FOUND:\n");
-                    printf("Name: %sPhone Number: %s", a[i].name , a[i].phoneNumber);       
-                    printf("\n");         
+                    printf("Name: %s", a[i].name);       
+                    printf("Phone Number: %s", a[i].phoneNumber);
+                    printf("\n");
+                    searchFound = 1;
+                    break;     
+                        
                 } 
-                else 
-                {
-                    printf("Contact was not found\n");
-                }
             };
+            if (searchFound == 0) 
+            {
+                printf("Contact was not found\n");
+            }
 
             break;
         
         case 4:
             // display all contacts
             printf("\nDISPLAY ALL CONTACTS\n");
-            for (int i = 0; i < size - 1; i++) {printf("\nName: %sPhone Number: %s\n", a[i].name , a[i].phoneNumber);};
+            for (int i = 0; i < size - 1; i++) 
+            {
+                printf("\nName: %s", a[i].name);
+                printf("Phone Number: %s\n", a[i].phoneNumber);
+            };
             break;
 
         case 5:
