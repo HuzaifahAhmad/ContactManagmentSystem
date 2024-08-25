@@ -92,6 +92,7 @@ int main() {
             break;
         
         case 2:
+            // delete contacts
             printf("\nDELETE CONTACT\n");
 
             Contact deleteContact;
@@ -108,27 +109,38 @@ int main() {
 
             int deleteFound = 0;
 
-            for (int i = 0; i < size - 1 ; i++) 
-            {
-                if (strcmp(a[i].name, deleteContactptr->name) == 0 && strcmp(a[i].phoneNumber, deleteContactptr->phoneNumber) == 0)
-                {
-                    printf("CONTACT DELETED:\n");
-
-
+            int i = 0;
+            while (i < size) {
+                if (strcmp(a[i].name, deleteContactptr->name) == 0 && strcmp(a[i].phoneNumber, deleteContactptr->phoneNumber) == 0) {
+                    // Shift elements left
+                    for (int j = i; j < size - 1; j++) {
+                        strcpy(a[j].name, a[j + 1].name);
+                        strcpy(a[j].phoneNumber, a[j + 1].phoneNumber);
+                    }
+                    size--;  // Decrease size
+                    a = realloc(a, sizeof(Contact) * size);  // Reallocate memory
                     deleteFound = 1;
-                    size -= 1;
-                    break;     
+                } else {
+                    i++;  // Only increment if no deletion happened
+                }
+            }
                         
-                } 
-            };
             if (deleteFound == 0) 
             {
                 printf("Contact was not found\n");
-            }            
+                printf("\n");
+            } 
+            else if (deleteFound == 1) 
+            {
+                printf("CONTACT DELETED:\n");   
+                printf("Name: %s", deleteContactptr->name);       
+                printf("Phone Number: %s\n", deleteContactptr->phoneNumber);
+            }
 
             break;
         
         case 3:
+            // search contacts
             printf("\nSEARCH CONTACT\n");
 
             Contact searchContact;
@@ -160,6 +172,7 @@ int main() {
             if (searchFound == 0) 
             {
                 printf("Contact was not found\n");
+                printf("\n");
             }
 
             break;
@@ -180,6 +193,7 @@ int main() {
         
         default:
             printf("Enter Valid Option\n");
+            printf("\n");
         }
 
         if (userInput == 5) {
