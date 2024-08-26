@@ -56,7 +56,7 @@ int main() {
     {
         printf("Choose Option: Add Contact [1], Delete Contact [2], Search Contact [3], Display Contacts [4], Exit [5]\n");
         printf("Enter 1, 2, 3, 4, or 5: ");
-        int userInput;
+        int userInput = 0;
         scanf("%d", &userInput);
         flush_input();
 
